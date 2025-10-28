@@ -20,8 +20,8 @@ const WARNING_LINE = 4;  // Baris peringatan (4 dari atas)
 // 3. Aktifkan Row Level Security dan buat policy untuk INSERT dan SELECT public
 // 4. Ganti SUPABASE_URL dan SUPABASE_ANON_KEY di bawah
 
-const SUPABASE_URL = 'https://yirmtjvfparofdmhatdg.supabase.co';  // Ganti dengan URL Supabase Anda
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlpcm10anZmcGFyb2ZkbWhhdGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg5NDA5MjIsImV4cCI6MjA3NDUxNjkyMn0.7e3NgndvDK524hsLaIAjmk9vpM3B305wFhQO8sJOuhk';  // Ganti dengan Anon Key Anda
+const SUPABASE_URL = 'https://pybbjqylvivunfadjegh.supabase.co';  // Your Project URL
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5YmJqcXlsdml2dW5mYWRqZWdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2MjkwMTQsImV4cCI6MjA3NzIwNTAxNH0.5-Nbrt8eFTS7pt0XJvXudwoQdHp-LPyBP3-dooBjaiY';  // Your Anon Key
 
 let supabase = null;
 let supabaseEnabled = false;
@@ -29,11 +29,17 @@ let supabaseEnabled = false;
 // Inisialisasi Supabase jika kredensial sudah diisi
 if (SUPABASE_URL !== 'YOUR_SUPABASE_URL_HERE' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY_HERE') {
     try {
-        supabase = supabasejs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        supabaseEnabled = true;
-        console.log('Supabase connected successfully!');
+        // Wait for Supabase library to load
+        if (typeof window.supabase !== 'undefined') {
+            const { createClient } = window.supabase;
+            supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            supabaseEnabled = true;
+            console.log('✅ Supabase connected successfully!');
+        } else {
+            console.error('❌ Supabase library not loaded. Make sure you have internet connection.');
+        }
     } catch (error) {
-        console.error('Error connecting to Supabase:', error);
+        console.error('❌ Error connecting to Supabase:', error);
     }
 }
 
@@ -119,6 +125,7 @@ let lines = 0;
 let gameStarted = false;
 let gameLoop = null;
 let gamePaused = false;  // Status pause game
+let gameOverTriggered = false;  // Flag untuk mencegah multiple game over
 
 // Array untuk menyimpan partikel efek
 let particles = [];
@@ -619,6 +626,12 @@ function drop() {
  * Fungsi untuk menangani game over
  */
 async function gameOver() {
+    // Cegah multiple game over
+    if (gameOverTriggered) {
+        return;
+    }
+    gameOverTriggered = true;
+
     // Stop game
     gameStarted = false;
     gamePaused = false;
@@ -752,6 +765,7 @@ function startGame() {
     lines = 0;
     dropCounter = 0;
     particles = [];
+    gameOverTriggered = false;  // Reset game over flag
 
     // Mulai permainan
     gameStarted = true;
@@ -834,6 +848,8 @@ function goHome() {
     score = 0;
     lines = 0;
     dropCounter = 0;
+    particles = [];
+    gameOverTriggered = false;  // Reset game over flag
     updateScoreDisplay();
 }
 
@@ -864,6 +880,7 @@ function playAgain() {
     lines = 0;
     dropCounter = 0;
     particles = [];
+    gameOverTriggered = false;  // Reset game over flag
 
     // Mulai permainan
     gameStarted = true;
@@ -888,6 +905,7 @@ function backToMenu() {
     lines = 0;
     dropCounter = 0;
     particles = [];
+    gameOverTriggered = false;  // Reset game over flag
     updateScoreDisplay();
 }
 
