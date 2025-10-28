@@ -659,12 +659,51 @@ async function gameOver() {
             savingMessage.style.color = '#d9534f';
         }
 
-        // Sembunyikan pesan setelah 3 detik
+        // Sembunyikan pesan setelah 2 detik
         setTimeout(() => {
             savingMessage.style.display = 'none';
-        }, 3000);
+        }, 2000);
+
+        // Load leaderboard setelah save
+        await loadGameOverLeaderboard();
     } else {
         savingMessage.style.display = 'none';
+        // Load leaderboard meskipun tidak ada Supabase
+        await loadGameOverLeaderboard();
+    }
+}
+
+/**
+ * Load dan tampilkan leaderboard di game over popup
+ */
+async function loadGameOverLeaderboard() {
+    const list = document.getElementById('gameOverLeaderboardList');
+
+    // Loading state
+    list.innerHTML = '<p class="loading-text">Loading leaderboard...</p>';
+
+    // Load data
+    const scores = await loadLeaderboard();
+
+    // Tampilkan data
+    if (scores.length === 0) {
+        list.innerHTML = '<p class="loading-text">No scores yet. You are the first!</p>';
+    } else {
+        list.innerHTML = scores.map((item, index) => {
+            const rank = index + 1;
+            const topClass = rank === 1 ? 'top-1' : rank === 2 ? 'top-2' : rank === 3 ? 'top-3' : '';
+
+            return `
+                <div class="leaderboard-item ${topClass}">
+                    <span class="leaderboard-rank">#${rank}</span>
+                    <span class="leaderboard-name">${item.player_name}</span>
+                    <div>
+                        <span class="leaderboard-score">${item.score}</span>
+                        <span class="leaderboard-lines">(${item.lines} lines)</span>
+                    </div>
+                </div>
+            `;
+        }).join('');
     }
 }
 

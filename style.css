@@ -434,6 +434,10 @@ body {
     text-align: center;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     animation: popIn 0.3s ease-out;
+    max-width: 600px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 @keyframes popIn {
@@ -522,6 +526,51 @@ body {
     font-size: 14px;
     margin: 10px 0;
     font-style: italic;
+}
+
+/* Leaderboard in Game Over Popup */
+.game-over-leaderboard {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
+
+.leaderboard-subtitle {
+    font-size: 20px;
+    color: #f0ad4e;
+    text-align: center;
+    margin: 0 0 15px 0;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.game-over-leaderboard-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.game-over-leaderboard-list .leaderboard-item {
+    padding: 10px 15px;
+    margin-bottom: 8px;
+}
+
+.game-over-leaderboard-list .leaderboard-rank {
+    font-size: 16px;
+    min-width: 30px;
+}
+
+.game-over-leaderboard-list .leaderboard-name {
+    font-size: 14px;
+}
+
+.game-over-leaderboard-list .leaderboard-score {
+    font-size: 16px;
+}
+
+.game-over-leaderboard-list .leaderboard-lines {
+    font-size: 11px;
 }
 
 /* Leaderboard Popup */
