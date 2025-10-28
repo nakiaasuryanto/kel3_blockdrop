@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockDrop - Tetris</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Menu Awal -->
+    <div id="menuScreen" class="menu-screen">
+        <div class="menu-content">
+            <img src="logo blockdrop.png" alt="BlockDrop Logo" class="game-logo">
+            <p class="game-subtitle">Classic Tetris Game</p>
+
+            <div class="name-input-container">
+                <input type="text" id="playerName" class="name-input" placeholder="Enter your name" maxlength="20">
+            </div>
+
+            <button id="startButton" class="start-button">START GAME</button>
+            <button id="rulesButton" class="rules-button">HOW TO PLAY</button>
+            <button id="leaderboardButton" class="leaderboard-button">🏆 LEADERBOARD</button>
+        </div>
+    </div>
+
+    <!-- Rules Popup -->
+    <div id="rulesPopup" class="rules-popup">
+        <div class="rules-content">
+            <h2 class="rules-title">HOW TO PLAY</h2>
+
+            <div class="rules-grid">
+                <div class="rule-box-popup">
+                    <div class="rule-icon-popup">🎮</div>
+                    <h4>Objective</h4>
+                    <p>Create complete horizontal lines to clear them and earn points!</p>
+                </div>
+
+                <div class="rule-box-popup">
+                    <div class="rule-icon-popup">🎯</div>
+                    <h4>Controls</h4>
+                    <p><strong>← →</strong> Move piece<br><strong>↓</strong> Drop faster<br><strong>↑ / Space</strong> Rotate</p>
+                </div>
+
+                <div class="rule-box-popup">
+                    <div class="rule-icon-popup">📊</div>
+                    <h4>Scoring</h4>
+                    <p>1 Line = <strong>100</strong><br>2 Lines = <strong>300</strong><br>3 Lines = <strong>500</strong><br>4 Lines = <strong>800</strong></p>
+                </div>
+
+                <div class="rule-box-popup">
+                    <div class="rule-icon-popup">💡</div>
+                    <h4>Tips</h4>
+                    <p>Keep stack flat<br>Avoid holes<br>Save I-piece for Tetris<br>Use ghost piece</p>
+                </div>
+            </div>
+
+            <button id="closeRulesButton" class="close-rules-button">GOT IT!</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="game-container" style="display: none;">
+        <div class="score-panel">
+            <div class="score-item">
+                <span class="label">Score</span>
+                <span id="score" class="value">0</span>
+            </div>
+            <div class="score-item">
+                <span class="label">Lines</span>
+                <span id="lines" class="value">0</span>
+            </div>
+            <button id="pauseButton" class="pause-button">||</button>
+        </div>
+
+        <div class="game-layout">
+            <canvas id="tetris" width="300" height="600"></canvas>
+
+            <div class="next-panel">
+                <div class="next-label">Next</div>
+                <canvas id="nextPiece" width="80" height="80"></canvas>
+            </div>
+        </div>
+
+        <div class="controls">
+            <p>← → Move | ↓ Drop | ↑/Space Rotate | P Pause</p>
+        </div>
+    </div>
+
+    <!-- Pause Popup -->
+    <div id="pausePopup" class="pause-popup">
+        <div class="pause-content">
+            <h2 class="pause-title">PAUSED</h2>
+            <button id="resumeButton" class="pause-menu-button">▶ RESUME</button>
+            <button id="homeButton" class="pause-menu-button">🏠 HOME</button>
+        </div>
+    </div>
+
+    <!-- Game Over Popup -->
+    <div id="gameOverPopup" class="game-over-popup">
+        <div class="game-over-content">
+            <h2 class="game-over-title">GAME OVER</h2>
+            <div class="game-over-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Final Score</span>
+                    <span id="finalScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Lines Cleared</span>
+                    <span id="finalLines" class="stat-value">0</span>
+                </div>
+            </div>
+            <p id="savingMessage" class="saving-message">Saving score...</p>
+            <button id="playAgainButton" class="game-over-button primary">🔄 PLAY AGAIN</button>
+            <button id="backToMenuButton" class="game-over-button">🏠 BACK TO MENU</button>
+        </div>
+    </div>
+
+    <!-- Leaderboard Popup -->
+    <div id="leaderboardPopup" class="leaderboard-popup">
+        <div class="leaderboard-content">
+            <h2 class="leaderboard-title">🏆 LEADERBOARD</h2>
+            <div id="leaderboardList" class="leaderboard-list">
+                <p class="loading-text">Loading scores...</p>
+            </div>
+            <button id="closeLeaderboardButton" class="close-leaderboard-button">CLOSE</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="game.js"></script>
+</body>
+</html>
