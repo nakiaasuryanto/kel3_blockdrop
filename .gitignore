@@ -1,7 +1,5 @@
-# Audio files - users should add their own royalty-free audio
-*.mp3
-*.wav
-*.ogg
-
 # System files
 .DS_Store
+
+# Note: Audio files (music.mp3, clear.mp3) are included
+# They are royalty-free and safe to distribute
