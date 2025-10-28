@@ -104,7 +104,7 @@ body {
 .menu-content {
     text-align: center;
     background: rgba(255, 255, 255, 0.1);
-    padding: 60px 80px;
+    padding: 60px 60px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
