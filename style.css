@@ -218,6 +218,33 @@ body {
     background: #ec971f;
 }
 
+/* Team Info */
+.team-info {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.team-title {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.team-members {
+    text-align: center;
+}
+
+.team-members p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    margin: 5px 0;
+    line-height: 1.6;
+}
+
 /* Rules Popup */
 .rules-popup {
     display: none;
