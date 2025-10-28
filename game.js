@@ -20,8 +20,8 @@ const WARNING_LINE = 4;  // Baris peringatan (4 dari atas)
 // 3. Aktifkan Row Level Security dan buat policy untuk INSERT dan SELECT public
 // 4. Ganti SUPABASE_URL dan SUPABASE_ANON_KEY di bawah
 
-const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';  // Ganti dengan URL Supabase Anda
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';  // Ganti dengan Anon Key Anda
+const SUPABASE_URL = 'https://yirmtjvfparofdmhatdg.supabase.co';  // Ganti dengan URL Supabase Anda
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlpcm10anZmcGFyb2ZkbWhhdGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg5NDA5MjIsImV4cCI6MjA3NDUxNjkyMn0.7e3NgndvDK524hsLaIAjmk9vpM3B305wFhQO8sJOuhk';  // Ganti dengan Anon Key Anda
 
 let supabase = null;
 let supabaseEnabled = false;
