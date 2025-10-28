@@ -1,0 +1,7 @@
+# Audio files - users should add their own royalty-free audio
+*.mp3
+*.wav
+*.ogg
+
+# System files
+.DS_Store

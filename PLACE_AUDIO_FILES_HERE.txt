@@ -1,0 +1,17 @@
+🎵 AUDIO FILES NEEDED 🎵
+
+To enable audio in your BlockDrop game, add these two files to this folder:
+
+1. music.mp3 - Background music for the game
+2. clear.mp3 - Sound effect when clearing lines
+
+⚠️ IMPORTANT: Use royalty-free music only!
+Do NOT use copyrighted music like the original Tetris theme.
+
+📖 See AUDIO_SETUP.md for:
+- Where to download free music
+- Recommended audio sources
+- License information
+- Setup instructions
+
+The game will work without audio files, but you won't hear any sound.
