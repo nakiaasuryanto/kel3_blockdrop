@@ -46,6 +46,11 @@ if (SUPABASE_URL !== 'YOUR_SUPABASE_URL_HERE' && SUPABASE_ANON_KEY !== 'YOUR_SUP
 // Variabel untuk menyimpan nama pemain
 let playerName = '';
 
+// Audio elements
+let bgMusic = null;
+let clearSound = null;
+let audioInitialized = false;
+
 // Inisialisasi grid permainan sebagai array 2D yang diisi dengan 0
 // 0 = kosong, nilai lain = warna blok yang sudah ditempatkan
 const grid = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
@@ -524,6 +529,9 @@ function clearLines() {
         const points = [0, 100, 300, 500, 800];
         score += points[linesCleared];
         updateScoreDisplay();
+
+        // Play sound effect untuk line clear
+        playClearSound();
     }
 }
 
@@ -635,6 +643,9 @@ async function gameOver() {
     // Stop game
     gameStarted = false;
     gamePaused = false;
+
+    // Stop background music
+    stopBgMusic();
 
     // Update stats di popup
     document.getElementById('finalScore').textContent = score;
@@ -780,6 +791,59 @@ function update(time = 0) {
 }
 
 /**
+ * Initialize audio
+ */
+function initAudio() {
+    if (!audioInitialized) {
+        bgMusic = document.getElementById('bgMusic');
+        clearSound = document.getElementById('clearSound');
+
+        if (bgMusic) {
+            bgMusic.volume = 0.3;  // 30% volume untuk background music
+        }
+        if (clearSound) {
+            clearSound.volume = 0.5;  // 50% volume untuk sound effect
+        }
+
+        audioInitialized = true;
+    }
+}
+
+/**
+ * Play background music
+ */
+function playBgMusic() {
+    initAudio();
+    if (bgMusic) {
+        bgMusic.play().catch(e => {
+            console.log('Audio play prevented:', e);
+        });
+    }
+}
+
+/**
+ * Stop background music
+ */
+function stopBgMusic() {
+    if (bgMusic) {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+    }
+}
+
+/**
+ * Play clear sound effect
+ */
+function playClearSound() {
+    if (clearSound) {
+        clearSound.currentTime = 0;  // Reset to start
+        clearSound.play().catch(e => {
+            console.log('Sound effect play prevented:', e);
+        });
+    }
+}
+
+/**
  * Fungsi untuk memulai permainan
  */
 function startGame() {
@@ -808,6 +872,7 @@ function startGame() {
 
     // Mulai permainan
     gameStarted = true;
+    playBgMusic();  // Play background music
     generateNextPiece();  // Generate piece pertama untuk preview
     newPiece();           // Spawn piece pertama
     updateScoreDisplay(); // Inisialisasi tampilan skor
@@ -856,8 +921,12 @@ function togglePause() {
 
     if (gamePaused) {
         document.getElementById('pausePopup').style.display = 'flex';
+        // Pause music
+        if (bgMusic) bgMusic.pause();
     } else {
         document.getElementById('pausePopup').style.display = 'none';
+        // Resume music
+        if (bgMusic) bgMusic.play();
     }
 }
 
@@ -867,6 +936,8 @@ function togglePause() {
 function resumeGame() {
     gamePaused = false;
     document.getElementById('pausePopup').style.display = 'none';
+    // Resume music
+    if (bgMusic) bgMusic.play();
 }
 
 /**
@@ -876,6 +947,9 @@ function goHome() {
     // Stop game
     gameStarted = false;
     gamePaused = false;
+
+    // Stop background music
+    stopBgMusic();
 
     // Sembunyikan game screen dan pause popup, tampilkan menu
     document.getElementById('gameScreen').style.display = 'none';
@@ -924,6 +998,7 @@ function playAgain() {
     // Mulai permainan
     gameStarted = true;
     gamePaused = false;
+    playBgMusic();  // Play music again
     generateNextPiece();
     newPiece();
     updateScoreDisplay();
@@ -946,6 +1021,8 @@ function backToMenu() {
     particles = [];
     gameOverTriggered = false;  // Reset game over flag
     updateScoreDisplay();
+
+    // Music sudah di-stop di gameOver()
 }
 
 /**
