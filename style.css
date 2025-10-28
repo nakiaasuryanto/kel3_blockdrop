@@ -226,7 +226,7 @@ body {
 }
 
 .team-title {
-    color: white;
+    color: black;
     font-size: 18px;
     font-weight: bold;
     margin: 0 0 15px 0;
@@ -239,7 +239,7 @@ body {
 }
 
 .team-members p {
-    color: rgba(255, 255, 255, 0.9);
+    color: black;
     font-size: 13px;
     margin: 5px 0;
     line-height: 1.6;
