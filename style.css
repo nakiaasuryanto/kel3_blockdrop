@@ -220,8 +220,8 @@ body {
 
 /* Team Info */
 .team-info {
-    margin-top: 20px;
-    padding-top: 10px;
+    margin-top: 0px;
+    padding-top: 0px;
     border-top: 2px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -355,7 +355,7 @@ body {
 .game-logo {
     width: 200px;
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
     transition: transform 0.3s ease;
     animation: float 3s ease-in-out infinite;
