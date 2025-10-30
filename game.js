@@ -126,6 +126,12 @@ let nextPiece = {
 // Variabel untuk melacak skor dan jumlah baris
 let score = 0;
 let lines = 0;
+let combo = 0;  // Combo counter untuk consecutive line clears
+let incredibleEffect = {
+    active: false,
+    alpha: 1.0,
+    scale: 1.0
+};
 
 // Variabel untuk status game
 let gameStarted = false;
@@ -526,14 +532,86 @@ function clearLines() {
     // Update skor jika ada baris yang dihapus
     if (linesCleared > 0) {
         lines += linesCleared;
-        // Sistem scoring: 1 baris=100, 2=300, 3=500, 4=800 poin
-        const points = [0, 100, 300, 500, 800];
-        score += points[linesCleared];
+        // Sistem scoring baru: tidak kelipatan 100
+        const points = [0, 75, 225, 475, 800];
+        let earnedPoints = points[linesCleared];
+
+        // Combo bonus: +25 points per combo level
+        combo++;
+        if (combo > 1) {
+            earnedPoints += (combo - 1) * 25;
+        }
+
+        // Trigger INCREDIBLE effect untuk combo >= 4
+        if (combo >= 4) {
+            triggerIncredibleEffect();
+            // Bonus tambahan untuk incredible
+            earnedPoints += 150;
+        }
+
+        score += earnedPoints;
         updateScoreDisplay();
 
         // Play sound effect untuk line clear
         playClearSound();
+    } else {
+        // Reset combo jika tidak ada line yang clear
+        combo = 0;
     }
+}
+
+/**
+ * Trigger incredible effect untuk combo tinggi
+ */
+function triggerIncredibleEffect() {
+    incredibleEffect.active = true;
+    incredibleEffect.alpha = 1.0;
+    incredibleEffect.scale = 0.5;
+}
+
+/**
+ * Update incredible effect animation
+ */
+function updateIncredibleEffect() {
+    if (incredibleEffect.active) {
+        incredibleEffect.alpha -= 0.015;
+        incredibleEffect.scale += 0.03;
+
+        if (incredibleEffect.alpha <= 0) {
+            incredibleEffect.active = false;
+            incredibleEffect.alpha = 1.0;
+            incredibleEffect.scale = 1.0;
+        }
+    }
+}
+
+/**
+ * Draw incredible effect on canvas
+ */
+function drawIncredibleEffect() {
+    if (!incredibleEffect.active) return;
+
+    ctx.save();
+    ctx.globalAlpha = incredibleEffect.alpha;
+
+    // Text properties
+    ctx.font = `bold ${40 * incredibleEffect.scale}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Gradient fill
+    const gradient = ctx.createLinearGradient(0, canvas.height / 2 - 50, 0, canvas.height / 2 + 50);
+    gradient.addColorStop(0, '#FFD700');
+    gradient.addColorStop(0.5, '#FF6B6B');
+    gradient.addColorStop(1, '#FFD700');
+    ctx.fillStyle = gradient;
+
+    // Glow effect
+    ctx.shadowColor = '#FFD700';
+    ctx.shadowBlur = 20;
+    ctx.fillText('INCREDIBLE!', canvas.width / 2, canvas.height / 2);
+
+    ctx.restore();
 }
 
 /**
@@ -614,12 +692,17 @@ function move(dir) {
  * Jatuhkan piece satu baris ke bawah
  * Jika tidak bisa, maka merge ke grid dan spawn piece baru
  */
-function drop() {
+function drop(isSoftDrop = false) {
     currentPiece.y++;
 
     // Jika piece menabrak sesuatu
     if (collision()) {
         currentPiece.y--;  // Kembalikan ke posisi sebelumnya
+
+        // Hard drop bonus: +10 points ketika piece mendarat
+        score += 10;
+        updateScoreDisplay();
+
         merge();           // Gabungkan ke grid
         clearLines();      // Cek dan hapus baris penuh
         newPiece();        // Spawn piece baru
@@ -628,6 +711,10 @@ function drop() {
         if (collision()) {
             gameOver();
         }
+    } else if (isSoftDrop) {
+        // Soft drop bonus: +2 points per baris turun manual
+        score += 2;
+        updateScoreDisplay();
     }
 }
 
@@ -732,6 +819,7 @@ function render() {
     drawGhost();     // Ghost piece (bayangan)
     drawPiece();     // Piece yang sedang aktif
     drawParticles(); // Efek partikel
+    drawIncredibleEffect(); // Efek incredible
 }
 
 /**
@@ -753,7 +841,7 @@ document.addEventListener('keydown', (e) => {
     } else if (e.key === 'ArrowRight') {
         move(1);   // Gerak ke kanan
     } else if (e.key === 'ArrowDown') {
-        drop();    // Jatuhkan lebih cepat
+        drop(true);    // Jatuhkan lebih cepat dengan soft drop bonus
     } else if (e.key === 'ArrowUp' || e.key === ' ') {
         rotatePiece();  // Rotasi piece
     }
@@ -784,6 +872,9 @@ function update(time = 0) {
 
         // Update partikel efek
         updateParticles();
+
+        // Update incredible effect
+        updateIncredibleEffect();
 
         render();
     }
@@ -867,9 +958,11 @@ function startGame() {
     grid.forEach(row => row.fill(0));
     score = 0;
     lines = 0;
+    combo = 0;
     dropCounter = 0;
     particles = [];
     gameOverTriggered = false;  // Reset game over flag
+    incredibleEffect.active = false;
 
     // Mulai permainan
     gameStarted = true;
@@ -961,9 +1054,11 @@ function goHome() {
     grid.forEach(row => row.fill(0));
     score = 0;
     lines = 0;
+    combo = 0;
     dropCounter = 0;
     particles = [];
     gameOverTriggered = false;  // Reset game over flag
+    incredibleEffect.active = false;
     updateScoreDisplay();
 }
 
@@ -1019,9 +1114,11 @@ function playAgain() {
     grid.forEach(row => row.fill(0));
     score = 0;
     lines = 0;
+    combo = 0;
     dropCounter = 0;
     particles = [];
     gameOverTriggered = false;  // Reset game over flag
+    incredibleEffect.active = false;
 
     // Mulai permainan
     gameStarted = true;
@@ -1045,9 +1142,11 @@ function backToMenu() {
     grid.forEach(row => row.fill(0));
     score = 0;
     lines = 0;
+    combo = 0;
     dropCounter = 0;
     particles = [];
     gameOverTriggered = false;  // Reset game over flag
+    incredibleEffect.active = false;
     updateScoreDisplay();
 
     // Music sudah di-stop di gameOver()
