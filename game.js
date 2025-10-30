@@ -692,7 +692,7 @@ function move(dir) {
  * Jatuhkan piece satu baris ke bawah
  * Jika tidak bisa, maka merge ke grid dan spawn piece baru
  */
-function drop(isSoftDrop = false) {
+function drop() {
     currentPiece.y++;
 
     // Jika piece menabrak sesuatu
@@ -711,10 +711,6 @@ function drop(isSoftDrop = false) {
         if (collision()) {
             gameOver();
         }
-    } else if (isSoftDrop) {
-        // Soft drop bonus: +2 points per baris turun manual
-        score += 2;
-        updateScoreDisplay();
     }
 }
 
@@ -841,7 +837,7 @@ document.addEventListener('keydown', (e) => {
     } else if (e.key === 'ArrowRight') {
         move(1);   // Gerak ke kanan
     } else if (e.key === 'ArrowDown') {
-        drop(true);    // Jatuhkan lebih cepat dengan soft drop bonus
+        drop();    // Jatuhkan lebih cepat
     } else if (e.key === 'ArrowUp' || e.key === ' ') {
         rotatePiece();  // Rotasi piece
     }
