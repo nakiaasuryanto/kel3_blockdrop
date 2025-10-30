@@ -50,6 +50,7 @@ let playerName = '';
 let bgMusic = null;
 let clearSound = null;
 let audioInitialized = false;
+let isSoundMuted = false;
 
 // Inisialisasi grid permainan sebagai array 2D yang diisi dengan 0
 // 0 = kosong, nilai lain = warna blok yang sudah ditempatkan
@@ -967,11 +968,38 @@ function goHome() {
 }
 
 /**
+ * Toggle sound mute/unmute
+ */
+function toggleSound() {
+    const soundToggle = document.getElementById('soundToggle');
+    isSoundMuted = !soundToggle.checked;
+
+    if (isSoundMuted) {
+        // Mute all sounds
+        if (bgMusic) {
+            bgMusic.muted = true;
+        }
+        if (clearSound) {
+            clearSound.muted = true;
+        }
+    } else {
+        // Unmute all sounds
+        if (bgMusic) {
+            bgMusic.muted = false;
+        }
+        if (clearSound) {
+            clearSound.muted = false;
+        }
+    }
+}
+
+/**
  * Event listener untuk tombol pause, resume, dan home
  */
 document.getElementById('pauseButton').addEventListener('click', togglePause);
 document.getElementById('resumeButton').addEventListener('click', resumeGame);
 document.getElementById('homeButton').addEventListener('click', goHome);
+document.getElementById('soundToggle').addEventListener('change', toggleSound);
 
 // Tutup pause popup jika klik di luar konten
 document.getElementById('pausePopup').addEventListener('click', function(e) {
