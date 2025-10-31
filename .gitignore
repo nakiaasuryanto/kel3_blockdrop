@@ -3,3 +3,6 @@
 
 # Note: Audio files (music.mp3, clear.mp3) are included
 # They are royalty-free and safe to distribute
+
+# Development files
+*.log
