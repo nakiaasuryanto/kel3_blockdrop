@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Menu Awal -->
     <div id="menuScreen" class="menu-screen">
         <div class="menu-content">
             <img src="logo blockdrop.png" alt="BlockDrop Logo" class="game-logo">
@@ -31,7 +30,6 @@
         </div>
     </div>
 
-    <!-- Rules Popup -->
     <div id="rulesPopup" class="rules-popup">
         <div class="rules-content">
             <h2 class="rules-title">HOW TO PLAY</h2>
@@ -66,7 +64,6 @@
         </div>
     </div>
 
-    <!-- Game Screen -->
     <div id="gameScreen" class="game-container" style="display: none;">
         <div class="score-panel">
             <div class="score-item">
@@ -81,7 +78,7 @@
         </div>
 
         <div class="game-layout">
-            <canvas id="tetris" width="300" height="600"></canvas>
+            <canvas id="tetris" width="300" height="450"></canvas>
 
             <div class="next-panel">
                 <div class="next-label">Next</div>
@@ -94,7 +91,6 @@
         </div>
     </div>
 
-    <!-- Pause Popup -->
     <div id="pausePopup" class="pause-popup">
         <div class="pause-content">
             <h2 class="pause-title">PAUSED</h2>
@@ -110,7 +106,6 @@
         </div>
     </div>
 
-    <!-- Game Over Popup -->
     <div id="gameOverPopup" class="game-over-popup">
         <div class="game-over-content">
             <h2 class="game-over-title">GAME OVER</h2>
@@ -126,7 +121,6 @@
             </div>
             <p id="savingMessage" class="saving-message">Saving score...</p>
 
-            <!-- Leaderboard in Game Over -->
             <div class="game-over-leaderboard">
                 <h3 class="leaderboard-subtitle">🏆 TOP 10 SCORES</h3>
                 <div id="gameOverLeaderboardList" class="game-over-leaderboard-list">
@@ -139,7 +133,6 @@
         </div>
     </div>
 
-    <!-- Leaderboard Popup -->
     <div id="leaderboardPopup" class="leaderboard-popup">
         <div class="leaderboard-content">
             <h2 class="leaderboard-title">🏆 LEADERBOARD</h2>
@@ -150,7 +143,6 @@
         </div>
     </div>
 
-    <!-- Audio Elements -->
     <audio id="bgMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>

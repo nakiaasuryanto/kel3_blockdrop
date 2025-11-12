@@ -92,7 +92,6 @@ body {
     font-size: 16px;
 }
 
-/* Menu Screen */
 .menu-screen {
     display: flex;
     justify-content: center;
@@ -170,7 +169,6 @@ body {
     color: white;
 }
 
-/* Name Input */
 .name-input-container {
     width: 100%;
     margin-bottom: 20px;
@@ -198,7 +196,6 @@ body {
     color: #999;
 }
 
-/* Leaderboard Button */
 .leaderboard-button {
     background: #f0ad4e;
     color: white;
@@ -218,7 +215,6 @@ body {
     background: #ec971f;
 }
 
-/* Team Info */
 .team-info {
     margin-top: 30px;
     padding-top: 20px;
@@ -246,7 +242,6 @@ body {
     font-weight: 500;
 }
 
-/* Rules Popup */
 .rules-popup {
     display: none;
     position: fixed;
@@ -334,7 +329,6 @@ body {
     background: #45a049;
 }
 
-/* Scrollbar styling */
 .rules-content::-webkit-scrollbar {
     width: 8px;
 }
@@ -352,7 +346,6 @@ body {
     background: #555;
 }
 
-/* Game Logo */
 .game-logo {
     width: 200px;
     height: auto;
@@ -366,7 +359,6 @@ body {
     transform: scale(1.05) rotate(2deg);
 }
 
-/* Animasi float untuk logo */
 @keyframes float {
     0%, 100% {
         transform: translateY(0px);
@@ -376,7 +368,6 @@ body {
     }
 }
 
-/* Pause Button */
 .pause-button {
     background: transparent;
     color: #333;
@@ -393,7 +384,6 @@ body {
     transform: scale(1.1);
 }
 
-/* Pause Popup */
 .pause-popup {
     display: none;
     position: fixed;
@@ -447,7 +437,6 @@ body {
     margin-bottom: 0;
 }
 
-/* Sound Toggle */
 .sound-toggle-container {
     display: flex;
     align-items: center;
@@ -507,7 +496,6 @@ body {
     transform: translateX(24px);
 }
 
-/* Game Over Popup */
 .game-over-popup {
     display: none;
     position: fixed;
@@ -622,7 +610,6 @@ body {
     font-style: italic;
 }
 
-/* Leaderboard in Game Over Popup */
 .game-over-leaderboard {
     margin: 20px 0;
     padding: 20px;
@@ -667,7 +654,6 @@ body {
     font-size: 11px;
 }
 
-/* Leaderboard Popup */
 .leaderboard-popup {
     display: none;
     position: fixed;
@@ -791,7 +777,6 @@ body {
     background: #555;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .rules-grid {
         grid-template-columns: 1fr;
